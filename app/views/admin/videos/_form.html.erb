@@ -1,0 +1,38 @@
+<%= form_with(model: [:admin, video]) do |form| %>
+  <% if video.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(video.errors.count, "error") %> prohibited this video from being saved:</h2>
+      <ul>
+        <% video.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.fields_for :content do |content| %>
+    <div>
+      <%= content.label :title, style: "display: block" %>
+      <%= content.text_field :title %>
+    </div>
+
+    <div>
+      <%= content.label :description, style: "display: block" %>
+      <%= content.text_area :description %>
+    </div>
+  <% end %>
+    <div>
+      <%= form.label :video_url, style: "display: block" %>
+      <%= form.text_field :video_url %>
+    </div>
+
+    <div>
+      <%= form.label :video, style: "display: block" %>
+      <%= form.file_field :video %> <!-- Fix 'vie' to 'video' -->
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  
+<% end %>

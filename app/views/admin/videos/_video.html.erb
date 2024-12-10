@@ -1,0 +1,17 @@
+<div id="<%= dom_id video %>">
+  <p>
+    <strong>Title:</strong>
+    <%= video.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= video.description %>
+  </p>
+
+  <p>
+    <strong>Video url:</strong>
+    <%= video.video_url %>
+  </p>
+  <%= image_tag(video.video, width: 125, height: 150) if video.video.present? %>
+</div>

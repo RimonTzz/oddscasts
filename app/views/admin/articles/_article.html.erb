@@ -1,0 +1,15 @@
+<div id="<%= dom_id article %>">
+  <p>
+    <strong>Title:</strong>
+    <%= article.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= article.description %>
+  </p>
+  
+  <%= image_tag(article.cover, width: 125, height: 125) if article.cover.present? %>
+
+
+</div>
