@@ -1,5 +1,5 @@
 class ContentsController < ApplicationController
-  before_action :set_content, only: %i[ show edit update destroy ]
+  before_action :set_content, only: %i[ show edit update destroy in_review published rejected ]
 
   # GET /contents or /contents.json
   def index
@@ -56,6 +56,7 @@ class ContentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

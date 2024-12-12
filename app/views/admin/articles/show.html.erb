@@ -7,4 +7,5 @@
   <%= link_to "Back to articles", admin_articles_path %>
 
   <%= button_to "Destroy this article", admin_article_path(@article), method: :delete %>
+  <%= button_to "submit to review", admin_article_path(@article), method: :in_review %>
 </div>

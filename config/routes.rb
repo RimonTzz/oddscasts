@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :contents
   namespace :admin do
-    resources :articles
+    resources :articles do
+      member do
+        post :in_review
+        post :approve
+        post :reject
+      end
+    end
     resources :videos
   end
   resources :homes

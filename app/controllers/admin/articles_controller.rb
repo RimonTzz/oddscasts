@@ -1,5 +1,5 @@
 class Admin::ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :set_article, only: %i[ show edit update destroy in_review approve reject ]
 
   # GET /articles or /articles.json
   def index
@@ -58,6 +58,32 @@ class Admin::ArticlesController < ApplicationController
     end
   end
 
+  def in_review
+    @content = @article.content
+    @content.submit_for_review!
+    ContentMailer.with(content: @article.content).notify_content_submitted.deliver_later
+    respond_to do |format|
+      format.html { redirect_to admin_articles_path, status: :see_other, notice: "Article was successfully changed state to in review." }
+      format.json { head :no_content }
+    end
+  end
+
+  def approve
+    @content = @article.content
+    @content.approve!
+    respond_to do |format|
+      format.html { redirect_to admin_articles_path, status: :see_other, notice: "Article was successfully changed state to in published." }
+      format.json { head :no_content }
+    end
+  end
+  def reject
+    @content = @article.content
+    @content.reject!
+    respond_to do |format|
+      format.html { redirect_to admin_articles_path, status: :see_other, notice: "Article was successfully changed state to in draft." }
+      format.json { head :no_content }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
@@ -66,6 +92,6 @@ class Admin::ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(content_attributes: [ :title, :description ])
+      params.require(:article).permit(:cover, content_attributes: [ :title, :description ])
     end
 end
